@@ -1,26 +1,30 @@
 #include <bits/stdc++.h>
 using namespace std;
 int main(){
-    int n, m, k, val, cont = 0;
-    priority_queue<int> ap;
-    priority_queue<int> size;
+    int n, m, k, x, resul = 0;
     cin >> n >> m >> k;
+    priority_queue<int> api;
+    priority_queue<int> apar;
     for(int i = 0; i < n; i++){
-        cin >> val;
-        ap.push(val);
+        cin >> x;
+        api.push(x);
     }
     for(int i = 0; i < m; i++){
-        cin >> val;
-        size.push(val);
+        cin >> x;
+        apar.push(x);
     }
-    while(!ap.empty() && !size.empty()){
-        if(size.top() + k >= ap.top() && size.top() - k <= ap.top()){
-            cont++;
-            size.pop(); ap.pop();
+    while(!api.empty() && !apar.empty()){
+        if(apar.top()+k >= api.top() && apar.top()-k <= api.top()){
+            apar.pop();
+            api.pop();
+            resul++;
+        } else if(apar.top() > api.top()+k){
+            apar.pop();
+        } else{
+            api.pop();
         }
-        else if(size.top() - k > ap.top())        size.pop();
-        else if(size.top() + k < ap.top())        ap.pop();
     }
-    cout << cont << '\n';
+    cout << resul << '\n';
+
     return 0;
 }
